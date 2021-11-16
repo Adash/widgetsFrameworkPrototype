@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import './Home.css';
 
 const StyledControlBar = styled.div`
   height: 50px;
   color: whitesmoke;
-  background-color: #282c34;
+  background-color: #023047;
   padding: 0px 30px 0px 30px;
   display: flex;
   flex-direction: row;
@@ -25,51 +26,50 @@ const StyledControlBar = styled.div`
   }
 `;
 
-const HomeWrapper = styled.div`
-  --main-padding: 30px;
-
-  /* width: 100%; */
-  background-color: purple;
+const GridContainer = styled.div`
+  /* background-color: purple; */
+  max-width: 1300px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #8ecae6;
   padding: var(--main-padding);
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-content: flex-start;
-  row-gap: 30px;
-`;
-const FullWidthWidgetWrapper = styled.div`
-  /* width: calc(100% - var(--main-padding)); */
-  width: 100%;
-  height: 200px;
+  display: grid;
+  gap: var(--grid-gap) var(--grid-gap);
+
+  /* grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 300px 300px 300px max-content;
+  grid-template-areas:
+    'widgetOne widgetOne widgetOne'
+    'widgetTwo widgetTwo widgetThree'
+    'widgetFour widgetFour widgetThree'
+    'widgetFour widgetFour widgetFive'; */
 `;
 
-const OneThirdWidgetWrapper = styled.div`
-  /* width: calc(30% - var(--main-padding) * 2); */
-  width: 30%;
-  height: 200px;
+const GridContainerTwo = styled.div`
+  --main-padding: 30px;
+  /* background-color: purple; */
+  background-color: #8ecae6;
+  padding: var(--main-padding);
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 200px 200px max-content;
 `;
 
-const TwoThirdWidgetWrapper = styled.div`
-  /* width: calc(30% - var(--main-padding) * 2); */
-  width: 65%;
-  height: 200px;
-`;
-
-const OneThirdWidgetLongWrapper = styled.div`
-  /* width: calc(30% - var(--main-padding) * 2); */
-  flex: 0 0 300px;
-  height: 400px;
-`;
 const Widget = styled.div`
-  height: 100%;
+  /* height: 100%; */
   width: 100%;
   border-radius: 6px;
   color: white;
   background-color: ${(props) => props.widgetColor || '#ee6c4d'};
+  grid-area: ${(props) => props.grid_area || '#ee6c4d'};
+  height: ${(props) => props.customHeight || '100%'};
+  border: 3px solid ${(props) => props.borderColour || '#ee6c4d'};
   display: flex;
   justify-content: center;
   align-items: center;
+  .element {
+    transition: all 0.8s ease;
+  }
   h1 {
     font-size: 30px;
   }
@@ -77,7 +77,11 @@ const Widget = styled.div`
 
 const WidgetOne = () => {
   return (
-    <Widget widgetColor="seagreen">
+    <Widget
+      widgetColor="#489340"
+      borderColour="hsl(114.2, 39.3%, 31.4%)"
+      grid_area="widgetOne"
+    >
       <h1>WidgetOne</h1>
     </Widget>
   );
@@ -85,7 +89,11 @@ const WidgetOne = () => {
 
 const WidgetTwo = () => {
   return (
-    <Widget widgetColor="teal">
+    <Widget
+      widgetColor="#859F2C"
+      borderColour="hsl(73.6, 56.7%, 29.8%)"
+      grid_area="widgetTwo"
+    >
       <h1>WidgetTwo</h1>
     </Widget>
   );
@@ -93,7 +101,12 @@ const WidgetTwo = () => {
 
 const WidgetThree = () => {
   return (
-    <Widget widgetColor="lightblue">
+    <Widget
+      widgetColor="#C2AB18"
+      borderColour="hsl(51.9, 78%, 32.7%)"
+      grid_area="widgetThree"
+      customHeight="300px"
+    >
       <h1>WidgetThree</h1>
     </Widget>
   );
@@ -101,7 +114,12 @@ const WidgetThree = () => {
 
 const WidgetFour = () => {
   return (
-    <Widget widgetColor="grey">
+    <Widget
+      widgetColor="#E1B10E"
+      borderColour="hsl(46.4, 88.3%, 36.9%)"
+      grid_area="widgetFour"
+      customHeight="600px"
+    >
       <h1>WidgetFour</h1>
     </Widget>
   );
@@ -109,7 +127,12 @@ const WidgetFour = () => {
 
 const WidgetFive = () => {
   return (
-    <Widget widgetColor="pink">
+    <Widget
+      widgetColor="#FFB703"
+      borderColour="hsl(42.9, 100%, 40.6%)"
+      grid_area="widgetFive"
+      customHeight="400px"
+    >
       <h1>WidgetFive</h1>
     </Widget>
   );
@@ -117,57 +140,17 @@ const WidgetFive = () => {
 
 const WidgetSix = () => {
   return (
-    <Widget widgetColor="orange">
+    <Widget
+      widgetColor="#FD9E02"
+      borderColour="hsl(37.3, 98.4%, 40%)"
+      grid_area="widgetSix"
+    >
       <h1>WidgetSix</h1>
     </Widget>
   );
 };
 
-const Row = ({ widgetOne, widgetTwo, widgetThree, mode = 'fullWidth' }) => {
-  if (mode === 'fullWidth') {
-    return (
-      <FullWidthWidgetWrapper>
-        {widgetOne && widgetOne()}
-      </FullWidthWidgetWrapper>
-    );
-  }
-  if (mode === 'oneThird') {
-    return (
-      <>
-        <OneThirdWidgetWrapper>
-          {widgetOne && widgetOne()}
-        </OneThirdWidgetWrapper>
-        <OneThirdWidgetWrapper>
-          {widgetTwo && widgetTwo()}
-        </OneThirdWidgetWrapper>
-        <OneThirdWidgetWrapper>
-          {widgetThree && widgetThree()}
-        </OneThirdWidgetWrapper>
-      </>
-    );
-  }
-  if (mode === 'twoThird') {
-    return (
-      <>
-        <TwoThirdWidgetWrapper>
-          {widgetOne && widgetOne()}
-        </TwoThirdWidgetWrapper>
-        <OneThirdWidgetWrapper>
-          {widgetTwo && widgetTwo()}
-        </OneThirdWidgetWrapper>
-      </>
-    );
-  }
-};
-
-const ControlBar = ({
-  firstRowMode,
-  setFirstRowMode,
-  secondRowMode,
-  setSecondRowMode,
-  thirdRowMode,
-  setThirdRowMode,
-}) => {
+const ControlBar = ({ layout, setLayout }) => {
   const onRowModeChange = (e, modeSetter) => {
     modeSetter(e.target.value);
   };
@@ -176,38 +159,16 @@ const ControlBar = ({
     <StyledControlBar>
       <h1>Widgets Framework Prototype</h1>
       <div>
-        <label htmlFor="firstRow">First row</label>
+        <label htmlFor="layout">Layout</label>
         <select
-          value={firstRowMode}
-          onChange={(e) => onRowModeChange(e, setFirstRowMode)}
-          name="firstRow"
-          id="firstRow"
+          value={layout}
+          onChange={(e) => onRowModeChange(e, setLayout)}
+          name="layout"
+          id="layout"
         >
-          <option value="fullWidth">Full Width</option>
-          <option value="oneThird">One Third</option>
-          <option value="twoThird">Two Third</option>
-        </select>
-        <label htmlFor="secondRow">Second row</label>
-        <select
-          value={secondRowMode}
-          onChange={(e) => onRowModeChange(e, setSecondRowMode)}
-          name="secondRow"
-          id="secondRow"
-        >
-          <option value="fullWidth">Full Width</option>
-          <option value="oneThird">One Third</option>
-          <option value="twoThird">Two Third</option>
-        </select>
-        <label htmlFor="thirdRow">Third row</label>
-        <select
-          value={thirdRowMode}
-          onChange={(e) => onRowModeChange(e, setThirdRowMode)}
-          name="thirdRow"
-          id="thirdRow"
-        >
-          <option value="fullWidth">Full Width</option>
-          <option value="oneThird">One Third</option>
-          <option value="twoThird">Two Third</option>
+          <option value="gridStyleOne">Layout one</option>
+          <option value="gridStyleTwo">Layout two</option>
+          <option value="gridStyleThree">Layout three</option>
         </select>
       </div>
     </StyledControlBar>
@@ -215,30 +176,19 @@ const ControlBar = ({
 };
 
 export default function Home() {
-  const [firstRowMode, setFirstRowMode] = useState('fullWidth');
-  const [secondRowMode, setSecondRowMode] = useState('oneThird');
-  const [thirdRowMode, setThirdRowMode] = useState('twoThird');
+  const [layout, setLayout] = useState('gridStyleTwo');
 
   return (
     <>
-      <ControlBar
-        firstRowMode={firstRowMode}
-        setFirstRowMode={setFirstRowMode}
-        secondRowMode={secondRowMode}
-        setSecondRowMode={setSecondRowMode}
-        thirdRowMode={thirdRowMode}
-        setThirdRowMode={setThirdRowMode}
-      />
-      <HomeWrapper>
-        <Row widgetOne={WidgetOne} mode={firstRowMode} />
-        <Row
-          widgetOne={WidgetTwo}
-          widgetTwo={WidgetThree}
-          widgetThree={WidgetFour}
-          mode={secondRowMode}
-        />
-        <Row widgetOne={WidgetFive} widgetTwo={WidgetSix} mode={thirdRowMode} />
-      </HomeWrapper>
+      <ControlBar layout={layout} setLayout={setLayout} />
+      <GridContainer className={layout}>
+        <WidgetOne />
+        <WidgetTwo />
+        <WidgetThree />
+        <WidgetFour />
+        <WidgetFive />
+        {/* <WidgetSix /> */}
+      </GridContainer>
     </>
   );
 }
