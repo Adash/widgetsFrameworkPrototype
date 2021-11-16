@@ -16,9 +16,10 @@ const StyledControlBar = styled.div`
     font-size: 20px;
   }
   select {
-    padding: 3px;
+    padding: 5px;
     border: none;
     border-radius: 6px;
+    font-size: 15px;
   }
   label {
     margin-right: 5px;
