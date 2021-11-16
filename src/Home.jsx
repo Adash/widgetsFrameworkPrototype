@@ -26,33 +26,53 @@ const StyledControlBar = styled.div`
   }
 `;
 
-const GridContainer = styled.div`
+const HomeContainer = styled.div`
   /* background-color: purple; */
   max-width: 1300px;
   margin-left: auto;
   margin-right: auto;
   background-color: #8ecae6;
-  padding: var(--main-padding);
+  padding: 30px;
+`;
+
+const StyledLayoutOne = styled.div`
   display: grid;
   gap: var(--grid-gap) var(--grid-gap);
-
-  /* grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 300px 300px 300px max-content;
+  --grid-gap: 30px;
+  grid-template-columns: minmax(300px, 1fr) minmax(300px, 1fr) 330px;
+  grid-template-rows: max-content max-content max-content max-content;
   grid-template-areas:
     'widgetOne widgetOne widgetOne'
     'widgetTwo widgetTwo widgetThree'
     'widgetFour widgetFour widgetThree'
-    'widgetFour widgetFour widgetFive'; */
+    'widgetFour widgetFour widgetFive';
 `;
 
-const GridContainerTwo = styled.div`
-  --main-padding: 30px;
-  /* background-color: purple; */
-  background-color: #8ecae6;
-  padding: var(--main-padding);
+const StyledLayoutTwo = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 200px 200px max-content;
+  gap: var(--grid-gap) var(--grid-gap);
+  --grid-gap: 30px;
+  grid-template-columns: minmax(300px, 1fr) minmax(300px, 1fr) 330px;
+  grid-template-rows: max-content max-content max-content max-content max-content;
+  grid-template-areas:
+    'widgetOne widgetOne widgetOne'
+    'widgetFour widgetFour widgetThree'
+    'widgetFour widgetFour widgetFive'
+    'widgetTwo widgetTwo widgetFive'
+    'widgetTwo widgetTwo widgetFive';
+`;
+
+const StyledLayoutThree = styled.div`
+  display: grid;
+  gap: var(--grid-gap) var(--grid-gap);
+  --grid-gap: 30px;
+  grid-template-columns: minmax(300px, 1fr) minmax(300px, 1fr) 330px;
+  grid-template-rows: max-content max-content max-content max-content;
+  grid-template-areas:
+    'widgetFour widgetFour widgetFive'
+    'widgetFour widgetFour widgetSix'
+    'widgetOne widgetOne widgetOne'
+    'widgetTwo widgetTwo widgetThree';
 `;
 
 const Widget = styled.div`
@@ -75,75 +95,78 @@ const Widget = styled.div`
   }
 `;
 
-const WidgetOne = () => {
+const WidgetOne = ({ widgetHeight = '' }) => {
   return (
     <Widget
       widgetColor="#489340"
       borderColour="hsl(114.2, 39.3%, 31.4%)"
       grid_area="widgetOne"
+      customHeight={widgetHeight}
     >
       <h1>WidgetOne</h1>
     </Widget>
   );
 };
 
-const WidgetTwo = () => {
+const WidgetTwo = ({ widgetHeight = '' }) => {
   return (
     <Widget
       widgetColor="#859F2C"
       borderColour="hsl(73.6, 56.7%, 29.8%)"
       grid_area="widgetTwo"
+      customHeight={widgetHeight}
     >
       <h1>WidgetTwo</h1>
     </Widget>
   );
 };
 
-const WidgetThree = () => {
+const WidgetThree = ({ widgetHeight = '' }) => {
   return (
     <Widget
       widgetColor="#C2AB18"
       borderColour="hsl(51.9, 78%, 32.7%)"
       grid_area="widgetThree"
-      customHeight="300px"
+      customHeight={widgetHeight}
     >
       <h1>WidgetThree</h1>
     </Widget>
   );
 };
 
-const WidgetFour = () => {
+const WidgetFour = ({ widgetHeight = '' }) => {
   return (
     <Widget
       widgetColor="#E1B10E"
       borderColour="hsl(46.4, 88.3%, 36.9%)"
       grid_area="widgetFour"
-      customHeight="600px"
+      customHeight={widgetHeight}
     >
       <h1>WidgetFour</h1>
     </Widget>
   );
 };
 
-const WidgetFive = () => {
+const WidgetFive = ({ widgetHeight = '' }) => {
   return (
     <Widget
       widgetColor="#FFB703"
       borderColour="hsl(42.9, 100%, 40.6%)"
       grid_area="widgetFive"
-      customHeight="400px"
+      customHeight={widgetHeight}
     >
       <h1>WidgetFive</h1>
     </Widget>
   );
 };
 
-const WidgetSix = () => {
+const WidgetSix = ({ widgetHeight = '' }) => {
   return (
     <Widget
       widgetColor="#FD9E02"
       borderColour="hsl(37.3, 98.4%, 40%)"
       grid_area="widgetSix"
+      customHeight={widgetHeight}
     >
       <h1>WidgetSix</h1>
     </Widget>
@@ -166,29 +189,63 @@ const ControlBar = ({ layout, setLayout }) => {
           name="layout"
           id="layout"
         >
-          <option value="gridStyleOne">Layout one</option>
-          <option value="gridStyleTwo">Layout two</option>
-          <option value="gridStyleThree">Layout three</option>
+          <option value="layoutOne">Layout one</option>
+          <option value="layoutTwo">Layout two</option>
+          <option value="layoutThree">Layout three</option>
         </select>
       </div>
     </StyledControlBar>
   );
 };
 
+const LayoutOne = () => {
+  return (
+    <StyledLayoutOne>
+      <WidgetOne widgetHeight="280px" />
+      <WidgetTwo widgetHeight="200px" />
+      <WidgetThree widgetHeight="460px" />
+      <WidgetFour widgetHeight="660px" />
+      <WidgetFive widgetHeight="400px" />
+    </StyledLayoutOne>
+  );
+};
+
+const LayoutTwo = () => {
+  return (
+    <StyledLayoutTwo>
+      <WidgetOne widgetHeight="280px" />
+      <WidgetTwo widgetHeight="200px" />
+      <WidgetThree widgetHeight="460px" />
+      <WidgetFour widgetHeight="660px" />
+      <WidgetFive widgetHeight="400px" />
+    </StyledLayoutTwo>
+  );
+};
+
+const LayoutThree = () => {
+  return (
+    <StyledLayoutThree>
+      <WidgetOne widgetHeight="280px" />
+      <WidgetTwo widgetHeight="200px" />
+      <WidgetThree widgetHeight="460px" />
+      <WidgetFour widgetHeight="660px" />
+      <WidgetFive widgetHeight="400px" />
+      <WidgetSix widgetHeight="230px" />
+    </StyledLayoutThree>
+  );
+};
+
 export default function Home() {
-  const [layout, setLayout] = useState('gridStyleTwo');
+  const [layout, setLayout] = useState('layoutOne');
 
   return (
     <>
       <ControlBar layout={layout} setLayout={setLayout} />
-      <GridContainer className={layout}>
-        <WidgetOne />
-        <WidgetTwo />
-        <WidgetThree />
-        <WidgetFour />
-        <WidgetFive />
-        {/* <WidgetSix /> */}
-      </GridContainer>
+      <HomeContainer>
+        {layout === 'layoutOne' ? <LayoutOne /> : null}
+        {layout === 'layoutTwo' ? <LayoutTwo /> : null}
+        {layout === 'layoutThree' ? <LayoutThree /> : null}
+      </HomeContainer>
     </>
   );
 }
