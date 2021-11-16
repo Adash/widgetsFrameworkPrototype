@@ -16,7 +16,7 @@ const StyledControlBar = styled.div`
     font-size: 20px;
   }
   select {
-    padding: 5px;
+    padding: 3px;
     border: none;
     border-radius: 6px;
     font-size: 15px;
